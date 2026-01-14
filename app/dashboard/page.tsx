@@ -21,7 +21,7 @@ export default function Dashboard() {
 
       try {
         const res = await fetch(
-          "https://foo-backend-3w1o.onrender.com/api/protected",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/protected`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
