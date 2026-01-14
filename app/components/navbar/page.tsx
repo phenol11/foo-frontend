@@ -2,7 +2,17 @@
 
 import { usePathname, useRouter } from "next/navigation";
 
-export default function Navbar({ user, logout }) {
+type User = {
+  name?: string;
+  email?: string;
+};
+
+type NavbarProps = {
+  user?: User | null; // optional, can be null
+  logout?: () => void; // optional function
+};
+
+export default function Navbar({ user, logout }: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   return (
