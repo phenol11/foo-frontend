@@ -1,10 +1,17 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import type { User } from "@/app/types";
 
-export default function Navbar({ user, logout }) {
+interface NavbarProps {
+  user?: User | null;
+  logout?: () => void;
+}
+
+export default function Navbar({ user, logout }: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
+
   return (
     <div>
       {pathname === "/dashboard" ? (
@@ -39,17 +46,13 @@ export default function Navbar({ user, logout }) {
 
           <div className="flex items-center gap-4">
             <button
-              onClick={() => {
-                router.push("/signup");
-              }}
+              onClick={() => router.push("/signup")}
               className="rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600"
             >
               Sign Up
             </button>
             <button
-              onClick={() => {
-                router.push("/login");
-              }}
+              onClick={() => router.push("/login")}
               className="rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600"
             >
               Login

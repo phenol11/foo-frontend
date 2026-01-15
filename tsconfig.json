@@ -29,11 +29,11 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    "app/components/navbar/page.jsx",
-    "app/signup/page.jsx",
-    "app/login/page.jsx",
-    "app/page.jsx",
-    "app/layout.jsx"
+    "app/components/navbar/page.tsx",
+    "app/signup/page.tsx",
+    "app/login/page.tsx",
+    "app/page.tsx",
+    "app/layout.tsx"
   ],
   "exclude": ["node_modules"]
 }

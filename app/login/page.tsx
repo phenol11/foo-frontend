@@ -4,45 +4,46 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/navbar/page";
 
+interface LoginData {
+  email: string;
+  password: string;
+}
+
 export default function LoginPage() {
-  const [data, setData] = useState({
+  const [data, setData] = useState<LoginData>({
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
+  const [error, setError] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+
       const result = await res.json();
+
       if (!res.ok) {
         setError(result.message);
         return;
       }
 
-      // Save JWT
       localStorage.setItem("token", result.token);
-
-      // Go to protected page (frontend)
       router.push("/dashboard");
-    } catch (error) {
-      console.error("An unexpected error occurred:", error);
+    } catch (err) {
+      console.error(err);
     }
   };
 

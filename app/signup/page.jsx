@@ -4,33 +4,39 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/navbar/page";
 
-export default function LoginPage() {
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState("");
+interface SignupData {
+  name: string;
+  email: string;
+  password: string;
+}
 
-  const handleChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
+export default function SignupPage() {
+  const [data, setData] =
+    useState <
+    SignupData >
+    {
+      name: "",
+      email: "",
+      password: "",
+    };
+
+  const [error, setError] = useState < string > "";
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+
       const result = await res.json();
       if (!res.ok) {
         setError(result.message);
@@ -38,8 +44,8 @@ export default function LoginPage() {
       }
 
       router.push("/login");
-    } catch (error) {
-      console.error("An unexpected error occurred:", error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
