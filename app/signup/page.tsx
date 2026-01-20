@@ -11,16 +11,13 @@ interface SignupData {
 }
 
 export default function SignupPage() {
-  const [data, setData] =
-    useState <
-    SignupData >
-    {
-      name: "",
-      email: "",
-      password: "",
-    };
+  const [data, setData] = useState<SignupData>({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-  const [error, setError] = useState < string > "";
+  const [error, setError] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
